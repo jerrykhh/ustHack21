@@ -1,11 +1,11 @@
 import React from 'react';
 import Swiper from 'react-native-swiper';
-import Home from './view/Home';
-import Chat from './view/Chat';
-import Camera from './view/Camera';
-import Profile from './view/Profile';
+import Home from './Home';
+import Chat from './Chat';
+import Camera from './Camera';
+import Profile from './Profile';
 
-const index = () => {
+const HomeContainer = () => {
     return (
        <Swiper
         loop={false}
@@ -17,8 +17,8 @@ const index = () => {
                 showsPagination={false}
                 loop={false}
                 index={1}>
-                <Camera></Camera>
-                <Home></Home>
+                    <Camera></Camera>
+                    <Home></Home>
             </Swiper>
             <Profile></Profile>
         </Swiper>
@@ -26,4 +26,4 @@ const index = () => {
 
 }
 
-export default index;
+export default HomeContainer;

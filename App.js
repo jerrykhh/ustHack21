@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Index from './src/index';
+import Router from './src/IndexRouter';
+import Login from './src/view/Login';
 
 export default function App() {
   return (
-    <Index></Index>
+    <Router></Router>
   );
 }
 
