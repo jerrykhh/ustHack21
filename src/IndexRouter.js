@@ -2,8 +2,8 @@ import React from 'react';
 import {Scene, Router} from 'react-native-router-flux';
 import Login from './view/Login';
 import HomeContainer from './view/HomeContainer';
-import Profile from './view/Profile'
 import PackageCreator from './view/PackageCreator';
+import initPackageCreator from './view/initPackageCreator';
 
 const IndexRouter = () => {
     return (
@@ -11,7 +11,8 @@ const IndexRouter = () => {
             <Scene key="root" hideNavBar={true}>
                 <Scene key="login" component={Login}/>
                 <Scene key="home" component={HomeContainer} />
-                <Scene key="package" component={PackageCreator} headerMode="float" gesturesEnabled={false}/>
+                <Scene key="package" component={PackageCreator} headerMode="float" gesturesEnabled={false} />
+                <Scene key="initPackage" component={initPackageCreator} initial={true}/> 
             </Scene>
         </Router>
         /*<Router>
