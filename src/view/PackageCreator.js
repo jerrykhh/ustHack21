@@ -1,5 +1,6 @@
 import React from 'react';
-import {SafeAreaView, View, StyleSheet, Text} from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { SafeAreaView, View, StyleSheet, Text, Button } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -11,12 +12,11 @@ const styles = StyleSheet.create({
 
 const PackageCreator = (props) => {
     console.log(props.id);
-    return(
-        <SafeAreaView>
-            <View style={styles.container}>
-                <Text>Package Creator</Text>
-            </View>
-        </SafeAreaView>
+    return (
+        <View style={styles.container}>
+            <Text>Package Creator</Text>
+            <Button title="back" onPress={() => Actions.pop()}></Button>
+        </View>
     )
 
 }

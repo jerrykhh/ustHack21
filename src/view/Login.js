@@ -1,12 +1,17 @@
-import React, {Component, useState} from 'react';
-import {Actions} from 'react-native-router-flux';
-import {View, SafeAreaView, TextInput, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { Component, useState } from 'react';
+import { Actions } from 'react-native-router-flux';
+import { View, SafeAreaView, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 
 const styles = StyleSheet.create({
-    container:{
-        margin: 50,
-        marginTop: '35%'
+    container: {
+        backgroundColor: 'white',
+        marginTop: "10%",
+        height: "90%"
+    },
+    loginContainer: {
+        margin: 40,
+        marginTop: "30%"
     },
     title: {
         fontSize: 30,
@@ -18,7 +23,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         borderRadius: 8,
         borderColor: '#dbdbdb',
-        borderWidth: 0.5
+        borderWidth: 0.5,
+        backgroundColor: '#fafafa'
     },
     btnContainer: {
         backgroundColor: 'black',
@@ -52,9 +58,9 @@ const Login = () => {
     const [errorMes, setErrorMes] = useState("");
 
     const handleLogin = () => {
-        if(userLoginData.username == "" || userLoginData.password == "")
+        if (userLoginData.username == "" || userLoginData.password == "")
             setErrorMes("Missing the username or password.");
-        else{
+        else {
             Actions.replace('home');
         }
     }
@@ -65,31 +71,34 @@ const Login = () => {
         setLogin(data);
     }
 
-    return(
+    return (
         <SafeAreaView>
             <View style={styles.container}>
-                <Text style={styles.title}>Wellcome</Text>
-                <TextInput 
-                    style={styles.input} 
-                    placeholder='Username' 
-                    onChangeText={value => {
-                        handleChange('username', value)
-                    }}>
-                </TextInput>
-                <TextInput 
-                    style={styles.input} 
-                    placeholder="password" 
-                    secureTextEntry 
-                    onChangeText={
-                        value => {handleChange('password', value)
-                    }}>
-                </TextInput>
-                <TouchableOpacity  
-                    style={styles.btnContainer} 
-                    onPress={handleLogin}>
+                <View style={styles.loginContainer}>
+                    <Text style={styles.title}>Wellcome</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='username'
+                        onChangeText={value => {
+                            handleChange('username', value)
+                        }}>
+                    </TextInput>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="password"
+                        secureTextEntry
+                        onChangeText={
+                            value => {
+                                handleChange('password', value)
+                            }}>
+                    </TextInput>
+                    <TouchableOpacity
+                        style={styles.btnContainer}
+                        onPress={handleLogin}>
                         <Text style={styles.txtLogin}>Login</Text>
-                </TouchableOpacity>
-                <Text style={styles.errorMes}>{(errorMes != "")? errorMes: ""}</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.errorMes}>{(errorMes != "") ? errorMes : ""}</Text>
+                </View>
             </View>
         </SafeAreaView>
     );

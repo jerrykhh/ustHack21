@@ -16,9 +16,9 @@ const HomeContainer = () => {
                 horizontal={false}
                 showsPagination={false}
                 loop={false}
-                index={1}>
-                    <Camera></Camera>
+                index={0}>
                     <Home></Home>
+                    <Camera></Camera>
             </Swiper>
             <Profile></Profile>
         </Swiper>
