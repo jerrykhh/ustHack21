@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import GooglePlacesAutocomplete from '../components/GooglePacesInput';
+import GooglePlacesAutocomplete from '../components/GooglePlacesInput';
 
 const styles = StyleSheet.create({
     container: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 const initPackageCreator = () => {
 
 
-    const [packageInf, setPackageinf] = useState({
+    const [packageInf, setPackageInf] = useState({
         name: "",
         location: "",
         desc: ""
@@ -87,23 +87,24 @@ const initPackageCreator = () => {
     const [errMess, setErrMess] = useState("");
 
     const handleGoolgePlaceChange = e => {
-        console.log(e);
-        packageInf.location = e.description;
-        console.log(packageInf)
+        packageInf.location = {
+            address: e.address.description,
+            geometry: e.geometry
+        };
     }
 
     const updatePackage = (key, value) => {
         let data = packageInf;
         data[key] = value;
-        setPackageinf(data);
+        setPackageInf(data);
     }
 
     const clickNext = () =>{
         if(packageInf.name == '' || packageInf.location == '')
             setErrMess("Missing name and location")
         else{
-            Actions.package();
-        }
+            Actions.package({inf: packageInf});
+        } 
         
     }
 
@@ -115,7 +116,7 @@ const initPackageCreator = () => {
             <View style={styles.contentContainer}>
                 <View style={styles.context}>
                     <Text style={styles.header}>Please input you package name</Text>
-                    <TextInput style={styles.input} placeholder="Name" onChange={value => {updatePackage('name', value)}}></TextInput>
+                    <TextInput style={styles.input} placeholder="Name" onChangeText={value => {updatePackage('name', value)}}></TextInput>
                     <Text style={styles.header}>Location</Text>
                     <View style={styles.searchContainer}>
                         <GooglePlacesAutocomplete 
@@ -134,7 +135,7 @@ const initPackageCreator = () => {
                         />
                     </View>
                     <Text style={styles.header, {marginTop: styles.searchContainer.marginTop - 35}}>Description</Text>
-                    <TextInput style={[styles.input, styles.textView]} multiline={true} placeholder="Description" onChange={value => {updatePackage('desc', value)}}></TextInput>
+                    <TextInput style={[styles.input, styles.textView]} multiline={true} placeholder="Description" onChangeText={value => {updatePackage('desc', value)}}></TextInput>
                     <Text style={styles.errMess}>{(errMess != "") ? errMess : ""}</Text>
                 </View>
                 <TouchableOpacity style={styles.btnNext} onPress={clickNext}>
