@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
+import axios from 'axios';
 import { View, SafeAreaView, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const styles = StyleSheet.create({
@@ -61,7 +63,38 @@ const Login = () => {
         if (userLoginData.username == "" || userLoginData.password == "")
             setErrorMes("Missing the username or password.");
         else {
-            Actions.replace('home');
+            axios.post('https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/login', userLoginData)
+                .then((res) => {
+                    let responObj = JSON.stringify((res.data));
+                    const jsonObj = JSON.parse(responObj);
+                    if(jsonObj.login){
+                        //
+                        try{
+                            storeData(jsonObj.id).then(() => {
+                                Actions.replace('home');
+                            }).catch((err) => {
+                                console.log(err);
+                            })
+                            
+                        }catch(e){
+                            console.log("store failed")
+                        }
+ 
+                    }else
+                        setErrorMes("wrong username or password. ");
+                    
+                }).catch((err) => {
+                    console.log(err)
+                    setErrorMes("Error: Missing the username or password.");
+                });
+        }
+    }
+
+    const storeData = async (value) => {
+        try{
+            await AsyncStorage.setItem('userId', value.toString());
+        }catch(e){
+            console.log("save failed");
         }
     }
 
