@@ -4,6 +4,7 @@ import Login from './view/Login';
 import HomeContainer from './view/HomeContainer';
 import PackageCreator from './view/PackageCreator';
 import initPackageCreator from './view/initPackageCreator';
+import PackagePreview from './view/PackagePreview';
 
 const IndexRouter = () => {
     return (
@@ -13,6 +14,7 @@ const IndexRouter = () => {
                 <Scene key="home" component={HomeContainer}  />
                 <Scene key="package" component={PackageCreator} headerMode="float" />
                 <Scene key="initPackage" component={initPackageCreator} initial={true}/> 
+                <Scene key="review"  component={PackagePreview}/>
             </Scene>
         </Router>
         /*<Router>

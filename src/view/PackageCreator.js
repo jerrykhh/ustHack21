@@ -6,7 +6,6 @@ import MapView, { Marker } from 'react-native-maps';
 import GooglePlacesAutocomplete from '../components/GooglePlacesInput';
 import BottomSheet from 'reanimated-bottom-sheet';
 import PackageCard from '../components/PackageCard';
-import { event } from 'react-native-reanimated';
 
 
 const window = Dimensions.get('window');
@@ -105,6 +104,10 @@ const PackageCreator = (props) => {
         sheetRef.current.snapTo(index);
     };
 
+    const getLocPackageCount = () => {
+        return locPackage.length;
+    }
+
     const addToPackage = (packageTitle=null, packageAddress=null, lat=null, lng=null) => {
         (lat == null && lng == null && packageTitle == null && packageAddress == null)?
             locPackage.push({ latitude: nowLocation.latitude, longitude: nowLocation.longitude })
@@ -148,6 +151,14 @@ const PackageCreator = (props) => {
         }
     }
 
+    clickFinish = () =>{
+        console.log('click finish')
+        console.log(props);
+        const name = props.inf.name;
+        const country = props.inf.location.address;
+        Actions.review({data: {region, locPackage, name, country}});
+    }
+
 
     const renderContent = () => (
         (!init) ?
@@ -162,8 +173,13 @@ const PackageCreator = (props) => {
             </View> :
             (nowLocation.latitude != 0.0 && nowLocation.longitude != 0.0 && nowLocation.markerClick) ?
                 <View style={styles.cardContainer}>
-                    
-                    <PackageCard onChange={addToPackage} props={selectedMarker} />
+                    <PackageCard 
+                        getPackageCount={getLocPackageCount} 
+                        onChange={addToPackage} 
+                        props={selectedMarker} 
+                        onFinish={clickFinish}
+                        scrollIndex={onOpenBottomSheetHandler}
+                    />
                 </View>
                 :
                 <View></View>

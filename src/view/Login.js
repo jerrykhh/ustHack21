@@ -63,7 +63,7 @@ const Login = () => {
         if (userLoginData.username == "" || userLoginData.password == "")
             setErrorMes("Missing the username or password.");
         else {
-            axios.post('https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/login', userLoginData)
+            axiospost('https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/login', userLoginData)
                 .then((res) => {
                     let responObj = JSON.stringify((res.data));
                     const jsonObj = JSON.parse(responObj);

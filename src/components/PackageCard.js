@@ -12,8 +12,8 @@ const PackageCard = (params) => {
             .then((res) => {
                 const results = res.data.results[0];
                 let addressBuilder = "";
-                const titleBuilder = results.address_components[results.address_components.length-3].long_name + ", " + results.address_components[results.address_components.length-2].long_name
-                for(let i = 0; i < results.address_components.length -1; i++){
+                const titleBuilder = results.address_components[results.address_components.length - 3].long_name + ", " + results.address_components[results.address_components.length - 2].long_name
+                for (let i = 0; i < results.address_components.length - 1; i++) {
                     addressBuilder += results.address_components[i].short_name + " ";
                 }
                 setInformation({
@@ -25,12 +25,12 @@ const PackageCard = (params) => {
                 console.log(error)
             });
 
-            return () => {
-                setInformation({
-                    title: "",
-                    address: ""
-                })
-            };
+        return () => {
+            setInformation({
+                title: "",
+                address: ""
+            })
+        };
     }, [params.props]);
 
 
@@ -39,7 +39,7 @@ const PackageCard = (params) => {
         address: ""
     })
 
-    console.log(params)
+    //console.log(params)
 
     return (
         <View style={styles.container}>
@@ -50,9 +50,25 @@ const PackageCard = (params) => {
             <PackageImageContainer data={params.props} />
             <View style={styles.contentContainer}>
                 <View style={styles.eventButtonContainer}>
-                    <TouchableOpacity style={styles.eventButton} onPress={() => params.onChange(information.title, information.address, params.props.lat, params.props.lng)}>
+                    <TouchableOpacity style={styles.eventButton} onPress={() => {
+                        params.onChange(information.title, information.address, params.props.lat, params.props.lng)
+                        params.scrollIndex(1)
+                    }}>
                         <Text style={styles.eventButtonText}>Add To Package</Text>
                     </TouchableOpacity>
+                    {(params.getPackageCount() > 0) ?
+                        <TouchableOpacity 
+                            style={[styles.eventButton, {backgroundColor: 'black'}]}
+                            onPress={() => {
+                                params.scrollIndex(1)
+                                params.onFinish()
+                                }
+                            }
+                        >
+                            <Text style={styles.eventButtonText}>Finish Package</Text>
+                        </TouchableOpacity>
+                      : <View></View>
+                    }
                     <TouchableOpacity style={styles.eventButton}>
                         <Text style={styles.eventButtonText}>Street View</Text>
                     </TouchableOpacity>
