@@ -14,7 +14,6 @@ const GooglePlacesInput = (params) => {
       fetchDetails={true}
       minLength={4}
       onPress={(data, details = null) => {
-          console.log(details)
         params.onChange({address: data, geometry: details.geometry});
       }}
       query={{

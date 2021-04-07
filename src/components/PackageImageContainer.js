@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, SafeAreaView, Text } from 'react-native';
 
 const PackageImafeContainer = (props) => {
 
-    const data = [
+    /*const data = [
         {
             id: 1,
             image: 'https://scontent.fhkg10-1.fna.fbcdn.net/v/t31.18172-8/p843x403/19621231_448615218828935_8468480031804681748_o.jpg?_nc_cat=104&ccb=1-3&_nc_sid=cdbe9c&_nc_ohc=2sNIhrrvpBsAX_uIyqp&_nc_ht=scontent.fhkg10-1.fna&tp=6&oh=ffc724fd5d38cbc61e9c7845fbb1fe1b&oe=609131F6'
@@ -20,18 +20,19 @@ const PackageImafeContainer = (props) => {
             id: 4,
             image: 'https://scontent.fhkg10-1.fna.fbcdn.net/v/t31.18172-8/p843x403/19621231_448615218828935_8468480031804681748_o.jpg?_nc_cat=104&ccb=1-3&_nc_sid=cdbe9c&_nc_ohc=2sNIhrrvpBsAX_uIyqp&_nc_ht=scontent.fhkg10-1.fna&tp=6&oh=ffc724fd5d38cbc61e9c7845fbb1fe1b&oe=609131F6'
         }
-    ]
+    ]*/
+
 
     let scrollImageItems = [];
 
-    for (let i = 1; i < data.length; i++)
-        scrollImageItems.push(<Image style={styles.scrollImageItem} resizeMode="cover" key={data[i].id} source={{ uri: data[i].image }} />);
+    for (let i = 0; i < props.data.images.length; i++)
+        scrollImageItems.push(<Image style={styles.scrollImageItem} resizeMode="cover" key={props.data.images[i].id} source={{ uri: props.data.images[i].image }} />);
 
 
     return (
 
         <View style={styles.container}>
-            <Image style={styles.mainImage} source={{ uri: data[0].image }} />
+            <Image style={styles.mainImage} source={{ uri: props.data.image }} />
             <View style={styles.scrollImageContainer}>
                 {scrollImageItems}
             </View>
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     contentContainer:{
         flex: 1
     }
+    
 });
 
 export default PackageImafeContainer;

@@ -10,7 +10,7 @@ const IndexRouter = () => {
         <Router>
             <Scene key="root" hideNavBar={true}>
                 <Scene key="login" component={Login}/>
-                <Scene key="home" component={HomeContainer} />
+                <Scene key="home" component={HomeContainer}  />
                 <Scene key="package" component={PackageCreator} headerMode="float" />
                 <Scene key="initPackage" component={initPackageCreator} initial={true}/> 
             </Scene>
