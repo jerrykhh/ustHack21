@@ -2,7 +2,7 @@ import React from 'react';
 import Swiper from 'react-native-swiper';
 import Home from './Home';
 import Chat from './Chat';
-import Camera from './Camera';
+import CameraPage from './CameraPage';
 import Profile from './Profile';
 
 const HomeContainer = () => {
@@ -18,7 +18,7 @@ const HomeContainer = () => {
                 loop={false}
                 index={0}>
                     <Home></Home>
-                    <Camera></Camera>
+                    <CameraPage></CameraPage>
             </Swiper>
             <Profile></Profile>
         </Swiper>
