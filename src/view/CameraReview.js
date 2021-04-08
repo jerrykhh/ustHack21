@@ -66,7 +66,7 @@ const CameraReview = (props) => {
             userId: userId,
             image: props.data.photo.base64
         }
-        
+
         axios.put("https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/gallery", data).then((res) => {
             console.log(res.data);
             const responseObj = JSON.stringify(res.data);
@@ -109,13 +109,9 @@ const CameraReview = (props) => {
                 </MapView>
             </View>
             <View style={styles.pushButtonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => pushPost(userId)}>
-                
-
+                <TouchableOpacity style={styles.button} onPress={() => pushPost(userId)}>
                     <Text style={styles.sendButtonText}>Send</Text>
-
-                
-            </TouchableOpacity>
+                </TouchableOpacity>
             </View>
 
             <Text style={[styles.title, { marginTop: 30 }]}>Friends</Text>

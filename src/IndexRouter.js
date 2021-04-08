@@ -6,8 +6,9 @@ import HomeContainer from './view/HomeContainer';
 import PackageCreator from './view/PackageCreator';
 import initPackageCreator from './view/initPackageCreator';
 import PackagePreview from './view/PackagePreview';
-import CameraPage from './view/CameraPage';
-import CameraReview from './view/CameraReview'
+import Chat from './view/Chat';
+import CameraReview from './view/CameraReview';
+import Chatroom from './view/ChatRoom';
 
 const IndexRouter = () => {
     return (
@@ -18,8 +19,9 @@ const IndexRouter = () => {
                 <Scene key="package" component={PackageCreator} headerMode="float" hideNavBar={true}/>
                 <Scene key="initPackage" component={initPackageCreator} hideNavBar={true}/> 
                 <Scene key="review"  component={PackagePreview} hideNavBar={true}/>
-                <Scene key="camer" component={CameraPage} initial={true} hideNavBar={true}/>
+                <Scene key="chat" component={Chat} hideNavBar={true}/>
                 <Scene key="cameraReview" component={CameraReview} back={true} title="Photo" />
+                <Scene key="chatRoom" component={Chatroom} back={true} title="Chatroom" />
             </Scene>
         </Router>
         /*<Router>
