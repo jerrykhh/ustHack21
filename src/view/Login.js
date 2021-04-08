@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-import { View, SafeAreaView, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, TextInput, Text, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -60,6 +60,7 @@ const Login = () => {
     const [errorMes, setErrorMes] = useState("");
 
     const handleLogin = () => {
+        Keyboard.dismiss();
         if (userLoginData.username == "" || userLoginData.password == "")
             setErrorMes("Missing the username or password.");
         else {

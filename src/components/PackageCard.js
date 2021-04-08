@@ -47,15 +47,19 @@ const PackageCard = (params) => {
                 <Text style={styles.cardHeader}>{information.title}</Text>
                 <Text style={[styles.cardContent, { marginBottom: -10 }]}>{information.address}</Text>
             </View>
+            {(!params.empty)?
             <PackageImageContainer data={params.props} />
+            :<></>}
             <View style={styles.contentContainer}>
                 <View style={styles.eventButtonContainer}>
+                    {(!params.view)?
                     <TouchableOpacity style={styles.eventButton} onPress={() => {
                         params.onChange(information.title, information.address, params.props.lat, params.props.lng)
                         params.scrollIndex(1)
                     }}>
                         <Text style={styles.eventButtonText}>Add To Package</Text>
                     </TouchableOpacity>
+                    :<></>}
                     {(params.getPackageCount() > 0) ?
                         <TouchableOpacity 
                             style={[styles.eventButton, {backgroundColor: 'black'}]}

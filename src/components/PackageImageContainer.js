@@ -33,9 +33,11 @@ const PackageImafeContainer = (props) => {
 
         <View style={styles.container}>
             <Image style={styles.mainImage} source={{ uri: props.data.image }} />
+            {(scrollImageItems.length > 0) ?
             <View style={styles.scrollImageContainer}>
                 {scrollImageItems}
             </View>
+            : <></>}
         </View>
     )
 

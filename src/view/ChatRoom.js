@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import axios from 'axios';
-
 const ChatRoom = ( props) => {
     const [messages, setMessages] = useState([]);
 console.log(props)
@@ -17,12 +16,15 @@ console.log(props)
 
         let initMess = [];
 
-        for(const mess of jsonObj.data.Items){
+        for(let i = jsonObj.data.Items.length -1; i >= 0; i--){
+            const mess = jsonObj.data.Items[i];
+            const dateObj = new Date(mess.date);
+            dateObj.setHours(dateObj.getHours() - 6);
             if(mess.content == null){
                 initMess.push({
                     _id: mess.recvId,
                     image: mess.message.image,
-                    createdAt: new Date(mess.date),
+                    createdAt: dateObj,
                     user: {
                         _id: mess.senderId,
                     },
@@ -38,11 +40,17 @@ console.log(props)
                 });
             }
         }
-        setMessages(initMess)
+        setMessages(initMess);
+        console.log("refesh");
+        console.log(initMess);
     })
-  }, [])
+  }, []);
+
+
+  console.log(messages);
 
   const onSend = useCallback((messages = []) => {
+     
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 
@@ -53,6 +61,7 @@ console.log(props)
       user={{
         _id: props.userId,
       }}
+      
     />
   )
 }
