@@ -13,7 +13,11 @@ const GooglePlacesInput = (params) => {
       placeholder='Search Location'
       fetchDetails={true}
       minLength={4}
+      listViewDisplayed={false}
+      keyboardShouldPersistTaps='always'
       onPress={(data, details = null) => {
+        console.log("click");
+        console.log(data, details);
         params.onChange({address: data, geometry: details.geometry});
       }}
       query={{

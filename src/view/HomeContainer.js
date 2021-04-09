@@ -4,8 +4,9 @@ import Home from './Home';
 import Chat from './Chat';
 import CameraPage from './CameraPage';
 import Profile from './Profile';
+import Menu from '../components/Menu'
 
-const HomeContainer = () => {
+/*const HomeContainer = () => {
     return (
        <Swiper
         loop={false}
@@ -24,6 +25,30 @@ const HomeContainer = () => {
         </Swiper>
     );
 
-}
+}*/
+
+const SubMenu = () => (
+    <Menu
+      routes={[
+        { component: Home },
+        { component: CameraPage }
+      ]}
+      horizontal={false}
+    />
+  );
+  
+  const HomeContainer = () => {
+    return (
+      <Menu
+        routes={[
+          { component: Chat },
+          { component: SubMenu },
+          { component: Profile },
+        ]}
+      />
+    );
+  };
+
+
 
 export default HomeContainer;

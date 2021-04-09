@@ -19,10 +19,25 @@ const styles = StyleSheet.create({
     },
     itemDesc: {
         fontSize: 12
+    },
+    btnText:{
+        color: 'white'
+    },
+    createPackageButton:{
+        backgroundColor: '#0095f6',
+        borderRadius: 3,
+        width: "70%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8
+    },
+    btnContainer:{
+        padding: 10,
+        justifyContent: 'center',
+        alignItems:'center'
     }
+    
 })
-
-
 
 const ProfilrPackageList = (props) => {
 
@@ -49,6 +64,11 @@ const ProfilrPackageList = (props) => {
 
     return (
             <View style={styles.container}>
+                <View style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.createPackageButton} onPress={() => {Actions.initPackage()}}>
+                        <Text style={styles.btnText}>Create Package</Text>
+                    </TouchableOpacity>
+                </View>
                 <FlatList
                     scrollEnabled={false}
                     keyExtractor={(item) => item.id}

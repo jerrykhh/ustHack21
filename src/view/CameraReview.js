@@ -64,7 +64,9 @@ const CameraReview = (props) => {
 
         const data = {
             userId: userId,
-            image: props.data.photo.base64
+            image: props.data.photo.base64,
+            lat: props.data.coords.latitude,
+            lng: props.data.coords.longitude
         }
 
         axios.put("https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/gallery", data).then((res) => {

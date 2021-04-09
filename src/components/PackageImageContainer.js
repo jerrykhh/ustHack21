@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Image, SafeAreaView, Text } from 'react-native';
+import { View, StyleSheet, Image, SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
 const PackageImafeContainer = (props) => {
 
@@ -25,14 +26,24 @@ const PackageImafeContainer = (props) => {
 
     let scrollImageItems = [];
 
+
     for (let i = 0; i < props.data.images.length; i++)
-        scrollImageItems.push(<Image style={styles.scrollImageItem} resizeMode="cover" key={props.data.images[i].id} source={{ uri: props.data.images[i].image }} />);
+        scrollImageItems.push(
+        <TouchableOpacity style={styles.imageButton} onPress={() => pushImage(props.data.images[i].id)}>
+            <Image style={styles.scrollImageItem} resizeMode="cover" key={props.data.images[i].id} source={{ uri: props.data.images[i].image }} />
+        </TouchableOpacity>
+        );
 
+    const pushImage = (imageId) => {
+        Actions.image({imageId});
+    }
 
+    console.log(props.data)
     return (
-
         <View style={styles.container}>
-            <Image style={styles.mainImage} source={{ uri: props.data.image }} />
+                <TouchableOpacity style={styles.imageButton} onPress={() => {pushImage(props.data.id)}}>
+                    <Image resizeMode="contain" style={styles.mainImage} source={{ uri: props.data.image }} />
+                </TouchableOpacity>
             {(scrollImageItems.length > 0) ?
             <View style={styles.scrollImageContainer}>
                 {scrollImageItems}
@@ -49,8 +60,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    imageButton:{
+        
+        flex : 1
+    },
     mainImage: {
-        flex: 0.6,
+        flex: 1,
         width: "100%",
         height: null
     },

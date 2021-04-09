@@ -9,7 +9,7 @@ import PackagePreview from './view/PackagePreview';
 import Chat from './view/Chat';
 import CameraReview from './view/CameraReview';
 import Chatroom from './view/ChatRoom';
-import Home from './view/Home'
+import ImageView from './view/ImageView';
 
 const IndexRouter = () => {
     return (
@@ -23,7 +23,8 @@ const IndexRouter = () => {
                 <Scene key="chat" component={Chat} hideNavBar={true}/>
                 <Scene key="cameraReview" component={CameraReview} back={true} title="Photo" />
                 <Scene key="chatRoom" component={Chatroom} back={true} title="Chatroom" />
-            </Scene>
+                <Scene key="image" component={ImageView} back={true} title="Photo" />
+            </Scene> 
         </Router>
         /*<Router>
             <Scene key="root" hideNavBar={true}>

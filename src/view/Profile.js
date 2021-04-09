@@ -1,9 +1,10 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import {ScrollView, View, Text, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
 import Swiper from 'react-native-swiper';
 import ProfileIntro from '../components/ProfileIntro';
 import ProfilrPackageList from '../components/ProfilePackageList';
 import ProfileImageList from '../components/ProfileImageList';
+import axios from 'axios';
 
 const styles = StyleSheet.create({
     container: {
@@ -40,11 +41,24 @@ const styles = StyleSheet.create({
 const Profile = (props) => {
 
     const swiper = useRef(null);
+    const [user, setUser] = useState(null);
 
     const changeSwiper = (index) => {
         swiper.current.scrollTo(index);
     }
 
+    useEffect(() => {
+        axios.get("").then((res) => {
+            const response = JSON.stringify(res.data);
+            const jsonObj = JSON.parse(response);
+            if(jsonObj.stateCode == 200)
+                setUser(jsonObj.user);
+
+        }).catch(err => {
+            console.err(err);
+        })
+       
+    }, []);
 
     return (
         <SafeAreaView>
