@@ -51,6 +51,7 @@ const PackagePreview = (props) => {
     } else if (locPackage.length == 1) {
         directions.push(
             <Marker
+                key={1}
                 coordinate={{
                     latitude: locPackage[0].latitude,
                     longitude: locPackage[0].longitude
@@ -63,7 +64,10 @@ const PackagePreview = (props) => {
 
         const data = {
             userId : userId,
-            package: locPackage
+            package: locPackage,
+            title: props.data.name,
+            country: props.data.country,
+            desc: props.data.desc
         }
 
         axios.put('https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/package', data).then((res) => {
@@ -96,6 +100,7 @@ const PackagePreview = (props) => {
         updatePackage[index - 1] = nowTemp;
         updatePackage[index] = preTemp;
         setLoPackage(updatePackage);
+        setCount(count+1);
     }
 
     const downPackage = (index) => {
@@ -107,6 +112,7 @@ const PackagePreview = (props) => {
         updatePackage[index + 1] = nowTemp;
         updatePackage[index] = postTemp;
         setLoPackage(updatePackage);
+        setCount(count+1);
     }
 
 

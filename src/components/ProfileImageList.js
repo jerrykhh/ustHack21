@@ -60,19 +60,20 @@ const ProfileImageList = (props) => {
     const [imageSize, setImageSize] = useState((Dimensions.get('window').width - 12) /3);
     
 
-    const viewImage = (id) => {
+    const viewImage = (imageObject) => {
         console.log(id);
-    }
+    }   
+    console.log(props)
 
     return (
         <View style={styles.images}>
             <FlatList
                 scrollEnabled={false}
                 keyExtractor={(item) => item.id}
-                data={images}
+                data={props.data}
                 numColumns={3}
                 renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => viewImage(item.id)}>
+                        <TouchableOpacity onPress={() => viewImage(item)}>
                             <Image style={{width: imageSize, height: imageSize, margin: 1.7}}  source={{uri: item.image}}/>
                         </TouchableOpacity>
                 )}

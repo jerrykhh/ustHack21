@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 const ProfilrPackageList = (props) => {
 
 
-    const [trips, setTrips] = useState([
+    /*const [trips, setTrips] = useState([
         {
             id: 1,
             title: "Taiwan",
@@ -53,12 +53,14 @@ const ProfilrPackageList = (props) => {
             title: "Japan",
             desc: "Osaka"
         }
-    ]);
+    ]);*/
+
+    //console.log(props);
 
 
-    const viewPackage = (id) => {
+    const viewPackage = (dataObj) => {
         console.log(id);
-        Actions.initPackage({id: id});
+       // Actions.initPackage({id: id});
     }
 
 
@@ -72,12 +74,12 @@ const ProfilrPackageList = (props) => {
                 <FlatList
                     scrollEnabled={false}
                     keyExtractor={(item) => item.id}
-                    data={trips}
+                    data={props.data}
                     renderItem={({ item }) => (
                         <View style={styles.item}>
-                            <TouchableOpacity onPress={() => viewPackage(item.id)}>
+                            <TouchableOpacity onPress={() => viewPackage(item)}>
                                 <Text style={styles.itemTitle}>{item.title}</Text>
-                                <Text style={styles.itemDesc}>{item.desc}</Text>
+                                <Text style={styles.itemDesc}>{item.country}</Text>
                             </TouchableOpacity>
                         </View>
                     )}
