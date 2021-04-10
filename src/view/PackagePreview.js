@@ -16,6 +16,8 @@ const getRadomColor = () => {
 
 const PackagePreview = (props) => {
 
+    console.log(props)
+
     const [region, setRegion] = useState({
         latitude: props.data.region.latitude,
         longitude: props.data.region.longitude,
@@ -155,7 +157,7 @@ const PackagePreview = (props) => {
                 initialRegion={region}
                 style={StyleSheet.absoluteFill}
             >
-                {directions}
+                {(directions!= null)? directions:<></>}
 
             </MapView>
             <BottomSheet

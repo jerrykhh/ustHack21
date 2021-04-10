@@ -78,7 +78,7 @@ const PackageCreator = (props) => {
         const lat = props.inf.location.geometry.location.lat;
         const lng = props.inf.location.geometry.location.lng;
         axios.get(`https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/gallery?lat=${lat}&lng=${lng}&km=${55}`).then((res) => {
-            console.log(res.data);  
+            console.log(res.data);
             const responObj = JSON.stringify(res.data);
             const jsonObj = JSON.parse(responObj);
             console.log(jsonObj);
@@ -108,21 +108,24 @@ const PackageCreator = (props) => {
         return locPackage.length;
     }
 
-    const addToPackage = (packageTitle=null, packageAddress=null, lat=null, lng=null) => {
-        (lat == null && lng == null && packageTitle == null && packageAddress == null)?
+    const addToPackage = (packageTitle = null, packageAddress = null, lat = null, lng = null) => {
+        (lat == null && lng == null && packageTitle == null && packageAddress == null) ?
             locPackage.push({ latitude: nowLocation.latitude, longitude: nowLocation.longitude })
-        :
-            locPackage.push({title: packageTitle, address: packageAddress, latitude: lat, longitude: lng });
+            :
+            locPackage.push({ title: packageTitle, address: packageAddress, latitude: lat, longitude: lng });
     }
 
     const moveRegion = (object) => {
         setRegion(calRegion(object.geometry));
     }
 
+    const [cacheRegion, setCacheRegion] = useState();
     const clickMarker = (event) => {
-        for(let i = 0; i < markers.length; i++){
+        setCacheRegion(region);
+        setRegion(cacheRegion);
+        for (let i = 0; i < markers.length; i++) {
             console.log(markers[i].id, event.nativeEvent.id);
-            if(markers[i].id == event.nativeEvent.id){
+            if (markers[i].id == event.nativeEvent.id) {
                 setNowLocation({
                     latitude: markers[i].lat,
                     longitude: markers[i].lng,
@@ -151,12 +154,20 @@ const PackageCreator = (props) => {
         }
     }
 
-    clickFinish = () =>{
+    clickFinish = () => {
         console.log('click finish')
         console.log(props);
         const name = props.inf.name;
         const country = props.inf.location.address;
-        Actions.review({data: {region, locPackage, name, country}});
+        const region = {
+            latitude: locPackage[0].latitude,
+            longitude: locPackage[0].longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01
+
+        };
+        console.log(region);
+        Actions.review({ data: { region, locPackage, name, country } });
     }
 
 
@@ -173,10 +184,10 @@ const PackageCreator = (props) => {
             </View> :
             (nowLocation.latitude != 0.0 && nowLocation.longitude != 0.0 && nowLocation.markerClick) ?
                 <View style={styles.cardContainer}>
-                    <PackageCard 
-                        getPackageCount={getLocPackageCount} 
-                        onChange={addToPackage} 
-                        props={selectedMarker} 
+                    <PackageCard
+                        getPackageCount={getLocPackageCount}
+                        onChange={addToPackage}
+                        props={selectedMarker}
                         onFinish={clickFinish}
                         scrollIndex={onOpenBottomSheetHandler}
                     />
@@ -187,10 +198,10 @@ const PackageCreator = (props) => {
 
     return (
         <View style={styles.container} >
-            <MapView style={{flex: 1}}
+            <MapView style={{ flex: 1 }}
                 initialRegion={region}
                 region={region}
-                onPress={(event) => {
+                onLongPress={(event) => {
                     Keyboard.dismiss();
                     console.log(event.nativeEvent.coordinate);
                     console.log(event.nativeEvent.position);
@@ -203,18 +214,20 @@ const PackageCreator = (props) => {
                     setInit(true)
                     onOpenBottomSheetHandler(1);
                 }}
-                onRegionChangeCompleted={region => {setRegion(region)}}
-                
+                onRegionChangeCompleted={region => setRegion(region)}
+
             >
-                {markers.map((marker, index)=>(
-                    <Marker identifier={marker.id} 
+                {markers.map((marker, index) => (
+                    <Marker identifier={marker.id}
+                        tracksViewChanges={false}
                         key={marker.id}
+
                         image={require("../components/image/marker.png")}
-                        onPress={(event) => {}} 
+                        onPress={(event) => { }}
                         coordinate={{ latitude: marker.lat, longitude: marker.lng }}
-                        onPress={(event)=>{clickMarker(event)}}> 
-                        <View style={{flex: 1, justifyContent:'center', alignSelf: 'center'}}>
-                            <Image resizeMode="cover" style={{width: 105, height: 70, margin: 30, marginTop: 16, borderRadius: 5}} source={{uri: marker.image}}/>
+                        onPress={(event) => { clickMarker(event) }}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }}>
+                            <Image resizeMode="cover" style={{ width: 105, height: 70, margin: 30, marginTop: 16, borderRadius: 5 }} source={{ uri: marker.image }} />
                         </View>
                     </Marker>
                 ))}

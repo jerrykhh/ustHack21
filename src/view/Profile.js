@@ -1,9 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { RefreshControl, ScrollView, View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import ProfileIntro from '../components/ProfileIntro';
 import ProfilrPackageList from '../components/ProfilePackageList';
 import ProfileImageList from '../components/ProfileImageList';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSquare as regfaSquare} from '@fortawesome/free-regular-svg-icons';
+import { faImages } from '@fortawesome/free-solid-svg-icons';
+import { faImages as regfaImages} from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -43,61 +48,91 @@ const Profile = (props) => {
 
     const swiper = useRef(null);
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState();
+    const [refreshing, setRefreshing] = React.useState(false);
+    const [currentIndex, setCurrentIndesx] = useState(0);
 
     const changeSwiper = (index) => {
+        setCurrentIndesx(index);
         swiper.current.scrollTo(index);
+    }
+
+    const onRefresh = React.useCallback(() => {
+        getUser(userId)
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+       
+    }, []);
+
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+
+    const getUser = (userId) => {
+        axios.get(`https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/profile?userId=${userId}`).then((res) => {
+            const response = JSON.stringify(res.data);
+            const jsonObj = JSON.parse(response);
+            console.log(jsonObj, "profilPage");
+            setUser(jsonObj.user);
+        }).catch(err => {
+            console.err(err);
+        });
     }
 
     useEffect(() => {
         AsyncStorage.getItem('userId').then((data) => {
-            axios.get(`https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/profile?userId=${data}`).then((res) => {
-                const response = JSON.stringify(res.data);
-                const jsonObj = JSON.parse(response);
-                console.log(jsonObj);
-                setUser(jsonObj);
-                        
-                
-
-            }).catch(err => {
-                console.err(err);
-            });
+            setUserId(data);
+            getUser(data);
         }).catch(err => console.error(err))
 
     }, []);
 
     return (
-        (user != null)?
-        <SafeAreaView>
-            <ScrollView style={styles.container}>
-                <View style={styles.profileIntro}>
-                    <ProfileIntro data={{
-                        username: user.username,
-                        image: user.image
-                    }} 
-                    ></ProfileIntro>
-                    <Text style={styles.username}>@{user.username}</Text>
-                </View>
-                <View style={styles.profileSwiperContainer}>
-                    <View style={styles.profileSwiperSelectBar}>
-                        <TouchableOpacity style={styles.profileSwiperSelectBarItem} onPress={() => changeSwiper(0)}>
-                            <Text>btnPackage</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.profileSwiperSelectBarItem} onPress={() => changeSwiper(1)}>
-                            <Text>btnImages</Text>
-                        </TouchableOpacity>
+        (user != null) ?
+            <SafeAreaView>
+                <ScrollView
+                    style={styles.container}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }>
+                    <View style={styles.profileIntro}>
+                        <ProfileIntro data={{
+                            username: user.username,
+                            image: user.image
+                        }}
+                        ></ProfileIntro>
+                        <Text style={styles.username}>@{user.username}</Text>
                     </View>
-                    <Swiper
-                        ref={swiper}
-                        loop={false}
-                        showsPagination={false}
-                        index={0}>
-                        <ProfilrPackageList data={user.packages}></ProfilrPackageList>
-                        <ProfileImageList data={user.images}></ProfileImageList>
-                    </Swiper>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-        : <></>
+                    <View style={styles.profileSwiperContainer}>
+                        <View style={styles.profileSwiperSelectBar}>
+                            <TouchableOpacity style={styles.profileSwiperSelectBarItem} onPress={() => changeSwiper(0)}>
+                                <FontAwesomeIcon icon={(currentIndex==0)?faSquare: regfaSquare} size={20}/>
+    
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.profileSwiperSelectBarItem} onPress={() => changeSwiper(1)}>
+                                <FontAwesomeIcon icon={(currentIndex==1)?faImages: regfaImages} size={20}/>
+                            </TouchableOpacity>
+                        </View>
+                        <Swiper
+                            ref={swiper}
+                            loop={false}
+                            showsPagination={false}
+                            index={0}
+                            onIndexChanged = {(index) =>{ 
+                                console.log(index, "index");
+                                setCurrentIndesx(index)
+                            }}
+                            >
+                            <ProfilrPackageList data={user.packages}></ProfilrPackageList>
+                            <ProfileImageList data={user.images}></ProfileImageList>
+                        </Swiper>
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+            : <></>
     )
 }
 

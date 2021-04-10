@@ -30,7 +30,7 @@ const CameraReview = (props) => {
                     setFriends(jsonObj.result);
                 else
                     console.log(err);
-
+               
             }).catch(err => {
                 console.log(err)
             })

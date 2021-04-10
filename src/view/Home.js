@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
-import { ScrollView, View, Text, StyleSheet, Button, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Button, Image, Dimensions, TouchableOpacity, Keyboard } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import axios from 'axios';
@@ -47,10 +47,10 @@ const Home = () => {
                     <TouchableOpacity style={styles.cardButton} 
                         onPress={() => { 
                             radomRegion({
-                                latitude: parseFloat(Math.random() * 180  * (Math.round(Math.random()) ? 1 : -1).toFixed(7)),
-                                longitude: parseFloat(Math.random() * 180  * (Math.round(Math.random()) ? 1 : -1).toFixed(7)),
-                                latitudeDelta: 0.04,
-                                longitudeDelta: 0.05
+                                latitude: parseFloat(Math.random() * 180  * (Math.round(Math.random()) ? 1 : 1).toFixed(7)),
+                                longitude: parseFloat(Math.random() * 180  * (Math.round(Math.random()) ? 1 : 1).toFixed(7)),
+                                latitudeDelta: 0.06,
+                                longitudeDelta: 0.06
                             });
                             onOpenBottomSheetHandler(2) 
                     }}>
@@ -88,6 +88,7 @@ const Home = () => {
     const [markers, setMarkers] = useState([]);
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [selectedEmptyMarker, setEmptyMarker] = useState(null);
+
 
     const onOpenBottomSheetHandler = (index) => {
         sheetRef.current.snapTo(index);
@@ -180,13 +181,13 @@ const Home = () => {
             >
                 <MapView
                     style={[StyleSheet.absoluteFillObject, { marginLeft: 5, marginRight: 5 }]}
-                    initialRegion={region}
                     region={region}
                     onRegionChangeComplete={(region) => {
                         setRegion(region);
 
-                        //getMarker(); Fucking Like DDos set timeout
+                        getMarker(); //Fucking Like DDos set timeout
                     }}
+                    onPress={()=> Keyboard.dismiss()}
                     onLongPress={(event) => {
                         //console.log(coordinate, position);
                         setSelectedMarker({

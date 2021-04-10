@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import PackageImageContainer from './PackageImageContainer';
+import { Actions } from 'react-native-router-flux';
 
 const PackageCard = (params) => {
 
@@ -41,6 +42,12 @@ const PackageCard = (params) => {
 
     //console.log(params)
 
+    const streetView = () => {
+        
+        Actions.push("street", {lat: params.props.lat, lng:params.props.lng})
+
+    }
+
     return (
         <View style={styles.container}>
             <View style={[styles.cardContentContainer, { margin: 30 }]}>
@@ -73,7 +80,7 @@ const PackageCard = (params) => {
                         </TouchableOpacity>
                       : <View></View>
                     }
-                    <TouchableOpacity style={styles.eventButton}>
+                    <TouchableOpacity style={styles.eventButton} onPress={() => streetView()}>
                         <Text style={styles.eventButtonText}>Street View</Text>
                     </TouchableOpacity>
                 </View>

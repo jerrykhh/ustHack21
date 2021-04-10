@@ -6,7 +6,7 @@ import CameraPage from './CameraPage';
 import Profile from './Profile';
 import Menu from '../components/Menu'
 
-/*const HomeContainer = () => {
+const HomeContainer = () => {
     return (
        <Swiper
         loop={false}
@@ -25,8 +25,8 @@ import Menu from '../components/Menu'
         </Swiper>
     );
 
-}*/
-
+}
+/*
 const SubMenu = () => (
     <Menu
       routes={[
@@ -45,10 +45,11 @@ const SubMenu = () => (
           { component: SubMenu },
           { component: Profile },
         ]}
+        initialIndex={1}
       />
     );
   };
 
-
+*/
 
 export default HomeContainer;

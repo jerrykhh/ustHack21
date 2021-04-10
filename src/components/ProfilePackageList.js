@@ -59,8 +59,7 @@ const ProfilrPackageList = (props) => {
 
 
     const viewPackage = (dataObj) => {
-        console.log(id);
-       // Actions.initPackage({id: id});
+        Actions.viewPackage({data: dataObj});
     }
 
 

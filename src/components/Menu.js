@@ -36,7 +36,7 @@ class Menu extends Component {
     static defaultProps = {
         routes: [],
         horizontal: true,
-        initialIndex: 0,
+        initialIndex: 1,
     }
 
     constructor(props) {
@@ -77,8 +77,8 @@ class Menu extends Component {
                     ref={(c) => this._scrollView = c}
                     horizontal={horizontal}
                     keyboardShouldPersistTaps='always'
-                    pagingEnabled
                     listViewDisplayed={false}
+                    pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     style={scrollViewStyle}
