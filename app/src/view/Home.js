@@ -13,14 +13,7 @@ const radio = 0.922;
 let count = 0;
 
 const Home = () => {
-
-    /*const [location, setLocation] = useState({
-        latitude: 0,
-        longitude: 0,
-        latitudeDelta: 0,
-        longitudeDelta: 0,
-    });
-
+    //
     useEffect(() => {
         (async () => {
             const { status } = await Location.requestPermissionsAsync();
@@ -28,12 +21,11 @@ const Home = () => {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }
-
             let location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-            setLocation(location.coords);
+            setRegion(location.coords); 
         })();
-    });*/
-
+    });
+    //
     const createPackage = () => {
         Actions.push('initPackage');
     }

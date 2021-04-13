@@ -50,8 +50,16 @@ console.log(props)
   console.log(messages);
 
   const onSend = useCallback((messages = []) => {
-     
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    //
+    axios.put(`https://aclog6mgqd.execute-api.us-east-1.amazonaws.com/v1/message?userId=${props.userId}&goId=${props.goId}`,{
+      message
+    }).then((res) => {
+      const responseObj = res.data;
+      if(responseObj.send)
+      setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    });
+    //
+
   }, [])
 
   return (

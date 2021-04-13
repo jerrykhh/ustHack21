@@ -109,7 +109,7 @@ const Login = () => {
         <SafeAreaView>
             <View style={styles.container}>
                 <View style={styles.loginContainer}>
-                    <Text style={styles.title}>Wellcome</Text>
+                    <Text style={styles.title}>Weilcome</Text>
                     <TextInput
                         style={styles.input}
                         placeholder='username'
