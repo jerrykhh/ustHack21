@@ -9,7 +9,7 @@ const PackageCard = (params) => {
 
 
     useEffect(() => {
-        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${params.props.lat},${params.props.lng}&key=${'AIzaSyDG4EyiR2isqQEf-BaPVF9w-OtPUwZdtbM'}`)
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${params.props.lat},${params.props.lng}&key=${''}`)
             .then((res) => {
                 const results = res.data.results[0];
                 let addressBuilder = "";
