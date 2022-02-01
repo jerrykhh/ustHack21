@@ -18,6 +18,6 @@ This project is use the React native to build up and build the serverless Archit
 - CHAN, Kwun Lam)
 
 ### Demonstration
-If you interesting this project, you can view my demo video in Youtube
+If you interesting this project, you can view the demo video in Youtube
 [Youtube video Click Here](https://youtu.be/wNURgAZhl84)
-[<img src="sample-image/cover.png" width="400">](https://www.youtube.com/watch?v=GQgXh4C_Ak8)
+[<img src="sample-image/cover.png">](https://youtu.be/wNURgAZhl84)
